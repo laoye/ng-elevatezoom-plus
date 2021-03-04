@@ -1,9 +1,9 @@
-import {Directive, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChange, SimpleChanges} from '@angular/core';
 
 @Directive({
   selector: '[ez-plus]'
 })
-export class EzPlusDirective implements OnInit, OnChanges, OnDestroy {
+export class EzPlusDirective implements OnChanges, OnDestroy {
 
   @Input('ezp-model') ezpModel: any;
 
@@ -16,14 +16,9 @@ export class EzPlusDirective implements OnInit, OnChanges, OnDestroy {
   private options: any = {};
 
   constructor(private el: ElementRef) {
-    console.log(el);
-  }
-
-  ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (changes.ezpOptions) {
       this.ezpOptionsChange(changes.ezpOptions);
     }
@@ -37,7 +32,7 @@ export class EzPlusDirective implements OnInit, OnChanges, OnDestroy {
     if (plugin) {
       plugin.destroy();
     }
-    for (let zoomId in this.zoomIds) {
+    for (const zoomId in this.zoomIds) {
       if (this.zoomIds.hasOwnProperty(zoomId)) {
         const zoomContainer = $(document).find('[uuid=' + zoomId + ']');
         zoomContainer.remove();
@@ -97,15 +92,15 @@ export class EzPlusDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     function getInitialUrl(options, defaultUrl?: string) {
-      let initialUrl = defaultUrl;
       if (options.initial === 'thumb') {
-        initialUrl = thumbUrl;
+        return thumbUrl;
       } else if (options.initial === 'small') {
-        initialUrl = smallUrl;
+        return smallUrl;
       } else if (options.initial === 'large') {
-        initialUrl = largeUrl;
+        return largeUrl;
+      } else {
+        return defaultUrl;
       }
-      return initialUrl;
     }
   }
 
@@ -130,8 +125,6 @@ export class EzPlusDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   private preparePlugin(element: any, options: any) {
-    console.log(element);
-    console.log(options);
     const plugin = $(element).ezPlus(options);
     this.lastPlugin = plugin && plugin.length > 0 ? this.getZoomPlugin(plugin[0]) : null;
     if (this.lastPlugin) {
@@ -139,6 +132,4 @@ export class EzPlusDirective implements OnInit, OnChanges, OnDestroy {
     }
     return this.lastPlugin;
   }
-
-
 }

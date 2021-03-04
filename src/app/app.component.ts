@@ -3,9 +3,8 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'ng-elevatezoom-plus';
-  url = 'https://file.weichaishi.com/5f/42/10a8bc7c72fd5ff690aa837ce295';
+  url = 'https://file.weichaishi.com/78/38/8d693cf5f28c9edb7e94b7643fdd';
 }
