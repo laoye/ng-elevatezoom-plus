@@ -3,3 +3,4 @@
  */
 
 export * from './lib/ez-plus.module';
+export * from './lib/ez-plus.directive';
